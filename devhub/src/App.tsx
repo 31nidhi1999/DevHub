@@ -1,35 +1,27 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useThemeStore } from './hook/useTheme';
 import './App.css'
+import { Link, Routes,Route } from 'react-router-dom';
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const {theme, toggleTheme} = useThemeStore();
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className={theme === "dark" ? "bg-gray-900 text-zinc-200" : "bg-white text-black"}>
+        <nav className="p-4 flex gap-4 border-b">
+          <Link to="/">Home</Link>
+          <Link to="/projects">Projects</Link>
+          <Link to="/articles">Articles</Link>
+          <button onClick={toggleTheme}>Toggle Theme</button>
+        </nav>
+        <Routes>
+          <Route path="/" element={<h1>Welcome to DevHub 🚀</h1>} />
+        <Route path="/projects" element={<h2>Projects Page</h2>} />
+        <Route path="/articles" element={<h2>Articles Page</h2>} />
+      
+        </Routes>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
 
-export default App
+export default App;
