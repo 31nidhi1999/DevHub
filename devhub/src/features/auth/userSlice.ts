@@ -15,23 +15,26 @@ import { createSlice} from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 type User = {
-  id: string;
+  id: number;
   name: string;
-  role: "admin" | "member";
+  role: "ADMIN" | "MANAGER" | "DEVELOPER";
+  email :string
 } | null;
 
-interface UserState {
+interface AuthState {
   user: User;
   token: string | null;
+  isAuthenticate : boolean
 }
 
-const initialState: UserState = {
+const initialState: AuthState = {
   user: null,
   token: null,
+  isAuthenticate : false,
 };
 
-const userSlice = createSlice({
-  name: "user",
+const authSlice = createSlice({
+  name: "auth",
   initialState,
   reducers: {
     login: (state, action: PayloadAction<{ user: User; token: string }>) => {
@@ -45,5 +48,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { login, logout } = userSlice.actions;
-export default userSlice.reducer;
+export const { login, logout } = authSlice.actions;
+export default authSlice.reducer;
